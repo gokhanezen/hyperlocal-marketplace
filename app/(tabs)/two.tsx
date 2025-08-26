@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 export default function ExploreScreen() {
+  const router = useRouter();
   const [activeFilter, setActiveFilter] = useState('All');
 
   const producers = [
@@ -97,6 +99,15 @@ export default function ExploreScreen() {
         </TouchableOpacity>
       </View>
 
+      {/* Sign Up Button */}
+      <TouchableOpacity
+        style={styles.signUpButton}
+        onPress={() => router.push('/register')}
+        activeOpacity={0.9}
+      >
+        <Text style={styles.signUpButtonText}>Sign Up</Text>
+      </TouchableOpacity>
+
       {/* Categories Filter */}
       <ScrollView 
         horizontal 
@@ -122,12 +133,12 @@ export default function ExploreScreen() {
           >
             <View style={styles.categoryContent}>
               <Text style={styles.categoryIcon}>{category.icon}</Text>
-              <Text style={[
-                styles.filterText,
-                activeFilter === category.id 
-                  ? styles.activeFilterText 
-                  : { color: category.color }
-              ]}>
+              <Text
+                style={[
+                  styles.filterText,
+                  activeFilter === category.id ? styles.activeFilterText : { color: category.color }
+                ]}
+              >
                 {category.name}
               </Text>
             </View>
@@ -237,31 +248,54 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
   },
+
+  /* Sign Up button */
+  signUpButton: {
+    marginHorizontal: 20,
+    marginTop: -5,
+    marginBottom: 12,
+    backgroundColor: '#4CAF50',
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  signUpButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '700',
+    letterSpacing: 0.3,
+  },
+
+  /* Filters */
   filterContainer: {
-    marginBottom: -150,
+    marginBottom: -400,          // NEGATİF margin kaldırıldı → boşluk sorunu çözüldü
   },
   filterContent: {
     paddingHorizontal: 20,
     paddingBottom: 10,
   },
   filterButton: {
-  paddingHorizontal: 12,
-  height: 80, // Yarıya indirilmiş sabit yükseklik
-  borderRadius: 16,
-  backgroundColor: '#fff',
-  marginRight: 8,
-  borderWidth: 2,
-  borderColor: '#e0e0e0',
-  shadowColor: '#000',
-  shadowOffset: { width: 0, height: 2 },
-  shadowOpacity: 0.05,
-  shadowRadius: 4,
-  elevation: 2,
-  minWidth: 80,
-  justifyContent: 'center', // İçeriği ortalamak için
-  alignItems: 'center',     // İçeriği ortalamak için
-},
-
+    paddingHorizontal: 12,
+    height: 80,
+    borderRadius: 16,
+    backgroundColor: '#fff',
+    marginRight: 8,
+    borderWidth: 2,
+    borderColor: '#e0e0e0',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+    minWidth: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   activeFilter: {
     borderColor: 'transparent',
     shadowColor: '#4CAF50',
@@ -269,7 +303,6 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   categoryContent: {
-    
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -287,10 +320,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+
+  /* List */
   producersList: {
-  flex: 1,
-  paddingTop: 0,           // Üstten az boşluk
-},
+    flex: 1,
+    paddingTop: 0,
+  },
   statsContainer: {
     paddingHorizontal: 20,
     paddingBottom: 10,
