@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
 
   /* Filters */
   filterContainer: {
-    marginBottom: -400,          // NEGATİF margin kaldırıldı → boşluk sorunu çözüldü
+    marginBottom: -50,          // NEGATİF margin kaldırıldı → boşluk sorunu çözüldü
   },
   filterContent: {
     paddingHorizontal: 20,
